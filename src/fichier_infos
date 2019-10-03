@@ -1,0 +1,13 @@
+EXERCICE V ; SCANF :
+Tout ce que l'utilisateur tape est une suite de char [suite : def FICHIER]
+
+-getchar() lit et consomme le premier caractère de cette liste [ungetc() peut le dé-consommer]
+-scanf utilise getchar() pour lire les caractères et traduire
+-"Bonjour" -> lit exactement 'B', 'o', ... et s'arrête après le 'r' ou au 1er char différent (puis ungetc())
+-"__" : lit une suite de ' ','\t', '\n'
+-"%d" : lit un entier
+-%f, %c, ... : cf printf
+-%s : lit une chaîne de caractères jusqu'au 1er blanc (' ', '\t', '\n')
+-%ms : idem
+%s -> demande un tableau de char char *
+%ms -> demande l'adresse de l'adresse d'un char char ** 
