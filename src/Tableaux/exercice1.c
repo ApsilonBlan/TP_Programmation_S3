@@ -3,25 +3,7 @@
 
 #define TAILLE 100000
 
-int crible(int* t)
-{
-    t[0], t[1] = 0, 0;
-    for(int j=2; j<TAILLE; j++)
-    {
-        t[j]=1;
-    }
-    for(int i=0; i<sqrt(TAILLE); i++)
-    {
-        if (t[i]==1)
-        {
-            for(int j=2; i*j<=TAILLE; j++)
-            {
-                t[i*j]=0;
-            }
-        }
-    }
-    return 0;
-}
+
 
 
 int main()

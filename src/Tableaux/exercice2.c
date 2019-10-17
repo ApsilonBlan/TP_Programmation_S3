@@ -1,44 +1,50 @@
 #include <stdio.h>
 #include <math.h>
-#define max(a,b) (a>=b?a:b)
-
 #define TAILLE 100000
 
 int crible(int* t)
 {
-    t[0], t[1] = 0, 1;
-    
-    for(int i=2; i<sqrt(TAILLE); i++)
+    /*Tous les nombres premiers sont affichés, les autres sont à 0*/
+    t[0]=0;
+    t[1]=1;
+    for(int j=2; j<TAILLE; j++)
     {
-        if (t[i]!=0)
+        t[j]=1;
+    }
+    
+    for(int i=2; i<=TAILLE; i++)
+    {
+        /*Si t[i] est à 1, c'est qu'il n'est mutiple d'aucun nombre premier qui le précède, il est donc premier aussi*/
+        if (t[i]==1)
         {
-            for(int j=2; i*j<TAILLE; j++)
+            t[i]=i;
+            /*Auquel cas, on cherche tous ses multiples inférieurs à TAILLE, auxquels on donne pour valeur de i, nombre premier qui le décompose*/
+            for(int j=2; i*j<=TAILLE; j++)
             {
-                t[i*j]=max(i,j);
+                /*Dans le cas de t[6] par exemple, on lui donne la valeur 2, lorsque l'on cherche les multiples de 2, puis la valeur de 3 lors de la recherche des multiples de 3*/
+               /*Ainsi, ce sera toujours le plus grand diviseur qui sera affecté à la fin de la fonction*/
+                t[i*j]=i;
             }
         }
     }
     return 0;
 }
 
-int decomposition(int* t, int entier)
-{
-    int tab[5*1];
-    if (t[entier]==entier)
+int decomposition(int *tab, int entier)
+{ 
+    int div = entier/tab[entier];
+    printf("%d",tab[entier]); 
+    
+    while (div != 1)
     {
-        return &tab;
+        entier=div;
+        div=entier/tab[entier]; 
+        printf(" * %d ", tab[entier]);
     }
-    int valeur = entier;
-    int i =0;
-    while (t[valeur]!=valeur)
-    {
-        tab[i]=t[valeur];
-        i++;
-        valeur=t[valeur];
-    }
-    return &tab;
-   
+    printf("\n");
+    
 }
+
 
 int main()
 {
@@ -50,34 +56,27 @@ int main()
         return rep; 
     }
     int entier;
+    
+    /*Boucle infinie saisissant les valeurs tapées par l'utilisateur*/
     while(1)
     {
         printf("Ecrivez un nombre entre 0 et 100000 exclu\n");
         scanf("%d", &entier);
+        /*3 cas de figure ; 1er cas : l'entier est négatif : break*/
         if(entier<0)
         {
             break;
         }
+        /*2ème cas de figure : l'entier est trop grand*/
         else if(entier>=TAILLE)
         {
             printf("%d est un nombre trop grand\n", entier);
             continue;
         }
+        /*3ème cas de figure : le bon ! Auquel cas, on cherche la décomposition*/
         else
         {
-            int tab=decomposition(t,entier);
-            if (tab[0]==1)
-            {
-                printf("%d est premier, il n'a pas de décomposition", entier);
-            }
-            else
-            {
-                printf("La décomposition de %d en facteurs premiers est ", entier);
-                for(int i=0; tab[i]!=0; i++)
-                {
-                    printf("%d x ", tab[i]);
-                }
-            }
+            decomposition(t, entier);
         }
     }
     
