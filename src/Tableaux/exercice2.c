@@ -46,6 +46,8 @@ int decomposition(int *tab, int entier)
 }
 
 
+
+for j 
 int main()
 {
     int t[TAILLE];
